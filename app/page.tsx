@@ -42,9 +42,3 @@ export default function Home() {
     </div>
   );
 }
-// dataCallback={setMapData}
-// dataTypeCallback={setOutputType}
-// floodInfoCallback={setFloodInfo}
-// onReady={(fn) => {
-//   triggerRef.current = fn;
-// }}
