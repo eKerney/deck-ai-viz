@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { DeckMap } from "./components/DeckMap";
 import Panel from "./components/Panel/Panel";
 import ChatInterface from "./components/ChatInterface/ChatInterface";
+import { useSelector } from "react-redux";
+import { chatMessagesSelector, inputSelector } from "./store/chatSlice";
 
 export default function Home() {
 
@@ -16,10 +18,12 @@ export default function Home() {
   };
   const [initialViewState, setInitialViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
   const [chatMessages, setChatMessages] = useState<Array<string>>([]);
-  // const { features, loading, error } = useOvertureData(overtureParams);
-  // run once on init
-  // const { data } = useOvertureCategories();
-  useEffect(() => console.log(chatMessages), [chatMessages]);
+  const messagesSelector = useSelector(chatMessagesSelector);
+  const input = useSelector(inputSelector);
+
+  useEffect(() => console.log('slice', messagesSelector), [messagesSelector]);
+  useEffect(() => console.log('local', chatMessages), [chatMessages]);
+  useEffect(() => console.log('input', input), [input]);
 
   return (
     <div className="h-screen w-screen overflow-hidden relative  ">
