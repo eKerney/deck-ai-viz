@@ -19,6 +19,7 @@ export default function Home() {
   // const { features, loading, error } = useOvertureData(overtureParams);
   // run once on init
   // const { data } = useOvertureCategories();
+  useEffect(() => console.log(chatMessages), [chatMessages]);
 
   return (
     <div className="h-screen w-screen overflow-hidden relative  ">
