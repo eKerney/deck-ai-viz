@@ -1,26 +1,23 @@
 'use client';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, UIMessage } from 'ai';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ChatProps } from './ChatInterface.types';
 import ReactMarkdown from 'react-markdown';
 import { useDispatch, useSelector } from 'react-redux';
-import { inputSelector, setInput } from '@/app/store/chatSlice';
+import { chatMessagesSelector, inputSelector, setInput } from '@/app/store/chatSlice';
 
 export default function ChatInterface(props: ChatProps) {
-  // const { messages, sendMessage, status } = useChat({
-  //   transport: new DefaultChatTransport({
-  //     api: '/api/chat',
-  //   }),
-  // });
-  // const [input, setInput] = useState('');
   const {
     children,
     callback,
   } = props;
   const input = useSelector(inputSelector);
+  const chatSelector = useSelector(chatMessagesSelector);
   const dispatch = useDispatch();
   const { messages, sendMessage, status } = useChat();
+
+  // useEffect(() => callback?.(messages), [messages, callback]);
 
 
   const messageMapper = (messages: Array<UIMessage>) => {

@@ -36,7 +36,6 @@ const chatSlice = createSlice({
 export const { setInput, clearInput, setChatMessages } = chatSlice.actions;
 
 export const inputSelector = (state: RootState) => state.chatSlice.input;
-export const chatMessagesSelector = (state: RootState) =>
-  state.chatSlice.chatMessages;
+export const chatMessagesSelector = (state: RootState) => state.chatSlice.chatMessages;
 
 export default chatSlice.reducer;

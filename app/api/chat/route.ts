@@ -3,7 +3,6 @@ import { convertToModelMessages, streamText, UIMessage } from 'ai';
 import { createOpenRouter } from '@openrouter/ai-sdk-provider';
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-console.log('key', OPENROUTER_API_KEY);
 const openrouter = createOpenRouter({
   apiKey: OPENROUTER_API_KEY,
 });
@@ -16,7 +15,7 @@ export async function POST(req: Request) {
 
   const result = streamText({
     model: openrouter('openrouter/free'),
-    system: 'You are a helpful assistant.',
+    system: 'You are a helpful assistant, you ALWAYS answer VERY briefly if possible',
     messages: await convertToModelMessages(messages),
   });
 
