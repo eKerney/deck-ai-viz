@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { ChatProps } from './ChatInterface.types';
 import ReactMarkdown from 'react-markdown';
 import { useDispatch, useSelector } from 'react-redux';
-import { chatMessagesSelector, inputSelector, setInput } from '@/app/store/chatSlice';
+import { chatMessagesSelector, inputSelector, setInput } from '@/app/store/slices/chatSlice';
 
 export default function ChatInterface(props: ChatProps) {
   const {

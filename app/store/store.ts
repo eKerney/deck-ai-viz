@@ -1,8 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import chatSlice from './chatSlice';
+import dataSlice from './slices/dataSlice';
+import chatSlice from './slices/chatSlice';
 
 const rootReducer = combineReducers({
-  chatSlice,
+  dataSlice,
+  chatSlice
 });
 
 export const store = configureStore({

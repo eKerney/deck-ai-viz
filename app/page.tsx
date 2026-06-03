@@ -5,7 +5,7 @@ import { DeckMap } from "./components/DeckMap";
 import Panel from "./components/Panel/Panel";
 import ChatInterface from "./components/ChatInterface/ChatInterface";
 import { useSelector } from "react-redux";
-import { chatMessagesSelector, inputSelector } from "./store/chatSlice";
+import { chatMessagesSelector, inputSelector } from "./store/slices/chatSlice";
 
 export default function Home() {
 
