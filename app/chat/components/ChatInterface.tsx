@@ -2,23 +2,16 @@
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, UIMessage } from 'ai';
 import { useEffect, useState } from 'react';
-import { ChatProps } from './ChatInterface.types';
+import { ChatProps } from '../ChatInterface.types';
 import ReactMarkdown from 'react-markdown';
-import { useDispatch, useSelector } from 'react-redux';
-import { chatMessagesSelector, inputSelector, setInput } from '@/app/store/slices/chatSlice';
 
 export default function ChatInterface(props: ChatProps) {
-  const {
-    children,
-    callback,
-  } = props;
-  const input = useSelector(inputSelector);
-  const chatSelector = useSelector(chatMessagesSelector);
-  const dispatch = useDispatch();
-  const { messages, sendMessage, status } = useChat();
-
-  // useEffect(() => callback?.(messages), [messages, callback]);
-
+  const { children, callback } = props;
+  const [input, setInput] = useState('');
+  const { messages, sendMessage, status } = useChat({
+    transport: new DefaultChatTransport({ api: 'chat/api' }),
+  });
+  useEffect(() => console.log('input', input), [input]);
 
   const messageMapper = (messages: Array<UIMessage>) => {
     return messages.map((message) => (
@@ -71,12 +64,11 @@ export default function ChatInterface(props: ChatProps) {
           {messageMapper(messages)}
         </div>
 
-
         <form
           onSubmit={(e) => {
             e.preventDefault();
             sendMessage({ text: input });
-            dispatch(setInput(''));
+            setInput('');
           }}
         >
           {status === 'streaming' && (
@@ -87,7 +79,7 @@ export default function ChatInterface(props: ChatProps) {
             border-zinc-300 dark:border-zinc-800 rounded shadow-xl text-white/90  focus:ring-2 focus:ring-blue-500 '
             value={input}
             placeholder='Enter an address or ask a question...'
-            onChange={(e) => dispatch(setInput(e.currentTarget.value))}
+            onChange={(e) => setInput(e.currentTarget.value)}
           />
         </form>
       </div>

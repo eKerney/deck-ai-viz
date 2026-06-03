@@ -9,16 +9,6 @@ export const DeckMap = ({ view_state, layers }: {
   const memoizedLayers = useMemo(() => [...layers], [layers]);
 
   const MAP_KEY = process.env.NEXT_PUBLIC_MAP_KEY;
-  // const getTooltip = ({ object }: { object: OverturePlaces }) => {
-  //   if (!object) {
-  //     return null;
-  //   }
-  //   return `\
-  //   ${object['placeName']}
-  //   ${object['categoryCode']}
-  //   ${object['placeID']}
-  //   `;
-  // };
 
   return (
     <DeckGL

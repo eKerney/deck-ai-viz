@@ -1,4 +1,3 @@
-// import { yourProvider } from "your-custom-provider";
 import { convertToModelMessages, streamText, UIMessage } from 'ai';
 import { createOpenRouter } from '@openrouter/ai-sdk-provider';
 
@@ -21,3 +20,4 @@ export async function POST(req: Request) {
 
   return result.toUIMessageStreamResponse();
 }
+
