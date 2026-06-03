@@ -1,6 +1,8 @@
 import { convertToModelMessages, stepCountIs, streamText, UIMessage } from 'ai';
 import { createOpenRouter } from '@openrouter/ai-sdk-provider';
 import { geocodeAddressTool } from '../ai/geocodeAddress';
+import { getMapDataURL } from '../ai/getMapDataURL';
+import { google } from '@ai-sdk/google';
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const openrouter = createOpenRouter({
@@ -12,15 +14,18 @@ export const maxDuration = 30;
 
 export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json();
+  const model = google('gemini-2.5-flash'); // or 'gemini-2.5-flash'
+  // const model = openrouter('openrouter/free');
 
   const result = streamText({
-    model: openrouter('openrouter/free'),
+    model: model,
     system: 'You are a helpful assistant, you ALWAYS answer VERY briefly if possible',
     messages: await convertToModelMessages(messages),
     maxOutputTokens: 4000,
 
     tools: {
-      geocodeAddressTool
+      geocodeAddressTool,
+      getMapDataURL
     },
     stopWhen: stepCountIs(2),
     onStepFinish(event) {
