@@ -11,7 +11,6 @@ export default function ChatInterface(props: ChatProps) {
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({ api: 'chat/api' }),
   });
-  useEffect(() => console.log('input', input), [input]);
 
   const messageMapper = (messages: Array<UIMessage>) => {
     return messages.map((message) => (
