@@ -14,6 +14,6 @@ export interface LayerViz {
   lineColor: [number, number, number, number],
   lineWidth: 10000,
   // Style properties for Polygons
-  getPolygonFillColor: (d: any) => polygonFillColor,
-  extruded: false
+  polygonFillColor: [number, number, number, number],
+  extruded: boolean,
 }
