@@ -21,7 +21,7 @@ export const createScatterplotLayer = (dataURL: string) => {
 
 export const createGeoJSONLayer = (
   dataURL: string,
-  polygonFillColor: [number, number, number, number]
+  polygonFillColor: [number, number, number, number] = [40, 173, 10, 150]
 ): Layer => {
 
   return new GeoJsonLayer({
@@ -35,7 +35,7 @@ export const createGeoJSONLayer = (
     getLineColor: (d: any) => [200, 200, 200, 255],
     getLineWidth: 10000,
     // Style properties for Polygons
-    getPolygonFillColor: (d: any) => [5, 50, 100, 150],
+    getPolygonFillColor: (d: any) => polygonFillColor,
     extruded: false
   });
 
