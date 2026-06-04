@@ -2,23 +2,25 @@
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, UIMessage } from 'ai';
 import { useEffect, useState } from 'react';
-import { ChatProps } from './ChatInterface.types';
+import { ChatProps } from '../ChatInterface.types';
 import ReactMarkdown from 'react-markdown';
-import { useDispatch, useSelector } from 'react-redux';
-import { chatMessagesSelector, inputSelector, setInput } from '@/app/store/slices/chatSlice';
 
 export default function ChatInterface(props: ChatProps) {
-  const {
-    children,
-    callback,
-  } = props;
-  const input = useSelector(inputSelector);
-  const chatSelector = useSelector(chatMessagesSelector);
-  const dispatch = useDispatch();
-  const { messages, sendMessage, status } = useChat();
-
-  // useEffect(() => callback?.(messages), [messages, callback]);
-
+  const { children, callback } = props;
+  const [input, setInput] = useState('');
+  const { messages, sendMessage, status } = useChat({
+    transport: new DefaultChatTransport({ api: 'chat/api' }),
+    onFinish: ({ message }) => {
+      for (const part of message.parts) {
+        // Runtime type is 'tool-getMapDataURL' even though TS types don't reflect it
+        if ((part as any).type === 'tool-getMapDataURL'
+          && (part as any).state === 'output-available') {
+          callback?.((part as any).output);
+          break;
+        }
+      }
+    },
+  });
 
   const messageMapper = (messages: Array<UIMessage>) => {
     return messages.map((message) => (
@@ -58,12 +60,12 @@ export default function ChatInterface(props: ChatProps) {
 
   return (
     <div className='flex flex-col h-full'>
-      <div className={`flex flex-row items-center mb-8 $`}>
+      <div className={`flex flex-row items-baseline mb-8`}>
         <div
-          className='text-2xl font-mono text-white'
+          className='text-xl font-mono text-white'
           style={{ fontFamily: 'monospace' }}
         >
-          Am I In a Simulation???
+          Countries, Lakes, Populated Places...?
         </div>
       </div>
       <div className='flex-1 flex flex-col w-full max-w-md mx-auto'>
@@ -71,12 +73,11 @@ export default function ChatInterface(props: ChatProps) {
           {messageMapper(messages)}
         </div>
 
-
         <form
           onSubmit={(e) => {
             e.preventDefault();
             sendMessage({ text: input });
-            dispatch(setInput(''));
+            setInput('');
           }}
         >
           {status === 'streaming' && (
@@ -87,7 +88,7 @@ export default function ChatInterface(props: ChatProps) {
             border-zinc-300 dark:border-zinc-800 rounded shadow-xl text-white/90  focus:ring-2 focus:ring-blue-500 '
             value={input}
             placeholder='Enter an address or ask a question...'
-            onChange={(e) => dispatch(setInput(e.currentTarget.value))}
+            onChange={(e) => setInput(e.currentTarget.value)}
           />
         </form>
       </div>

@@ -8,7 +8,7 @@ const Panel = (props: PanelProps) => {
     topRight: 'top-20 right-12',
     bottomLeft: 'bottom-4 left-4',
     bottomRight: 'bottom-4 right-4',
-    leftFull: 'top-2 left-2',
+    leftFull: 'top-0 left-0',
   };
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -21,7 +21,7 @@ const Panel = (props: PanelProps) => {
   return (
     <>
       <div className={`fixed ${layoutPositions[position]} ${className || ''} `}>
-        <div ref={scrollRef} className="h-full overflow-y-auto">
+        <div ref={scrollRef} className="h-10/12 overflow-y">
           {children}
         </div>
       </div>
