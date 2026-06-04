@@ -6,16 +6,19 @@ import { ChatProps } from '../ChatInterface.types';
 import ReactMarkdown from 'react-markdown';
 
 export default function ChatInterface(props: ChatProps) {
-  const { children, callback } = props;
+  const { children, layerCallback, layerVizCallback } = props;
   const [input, setInput] = useState('');
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({ api: 'chat/api' }),
     onFinish: ({ message }) => {
       for (const part of message.parts) {
-        // Runtime type is 'tool-getMapDataURL' even though TS types don't reflect it
-        if ((part as any).type === 'tool-getMapDataURL'
-          && (part as any).state === 'output-available') {
-          callback?.((part as any).output);
+        console.log(part)
+        if ((part as any).type === 'tool-getMapDataURL' && (part as any).state === 'output-available') {
+          layerCallback?.((part as any).output);
+          break;
+        }
+        else if ((part as any).type === 'tool-updateDeckLayerViz' && (part as any).state === 'output-available') {
+          layerVizCallback?.((part as any).output);
           break;
         }
       }
