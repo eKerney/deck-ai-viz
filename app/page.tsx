@@ -26,7 +26,7 @@ export default function Home() {
       >
         <ChatInterface
           layerCallback={setLayerData}
-          layerVizCallback={setLayerViz}
+          layerVizCallback={(v) => setLayerViz(prev => ({ ...prev, ...v }))}
         />
       </Panel>
 

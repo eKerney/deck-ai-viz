@@ -65,14 +65,14 @@ export default function ChatInterface(props: ChatProps) {
     <div className='flex flex-col h-full'>
       <div className={`flex flex-row items-baseline mb-8`}>
         <div
-          className='text-xl font-mono text-white'
+          className='text-lg font-mono text-white'
           style={{ fontFamily: 'monospace' }}
         >
-          Countries, Lakes, Populated Places...?
+          Add a layer from geojson.xyz: countries, rivers, populated places...
         </div>
       </div>
-      <div className='flex-1 flex flex-col w-full max-w-md mx-auto'>
-        <div className='flex-1 overflow-y-auto mb-4'>
+      <div className='flex-1 flex flex-col w-full max-w-md mx-auto min-h-0'>
+        <div className='grow overflow-y-auto mb-4'>
           {messageMapper(messages)}
         </div>
 
@@ -90,7 +90,7 @@ export default function ChatInterface(props: ChatProps) {
             className=' left-2 dark:bg-zinc-800/90  w-full max-w-md p-2 border 
             border-zinc-300 dark:border-zinc-800 rounded shadow-xl text-white/90  focus:ring-2 focus:ring-blue-500 '
             value={input}
-            placeholder='Enter an address or ask a question...'
+            placeholder='Which layer would you like to add...'
             onChange={(e) => setInput(e.currentTarget.value)}
           />
         </form>

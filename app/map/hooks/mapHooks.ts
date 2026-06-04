@@ -6,8 +6,8 @@ export function useMapInfo(layerInfo: LayerInfo, layerViz: LayerViz): { viewStat
   const viewState: MapViewState = {
     longitude: -85.55,
     latitude: 42.30,
-    zoom: 12,
-    pitch: 30,
+    zoom: 5,
+    pitch: 50,
     bearing: 0,
   };
 

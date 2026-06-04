@@ -15,24 +15,26 @@ export const maxDuration = 30; // 30 sec
 
 export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json();
-  const model = groq('llama-3.3-70b-versatile');
+  // const model = groq('llama-3.3-70b-versatile');
+  const model = groq('meta-llama/llama-4-scout-17b-16e-instruct');
   // const model = google('gemini-2.5-flash-lite'); // or 'gemini-2.5-flash'
   // const model = openrouter('openrouter/free');
 
   const result = streamText({
     model: model,
-    system: 'You are a helpful assistant, you ALWAYS answer VERY briefly if possible',
+    system: 'You are a helpful technical assistant, you answer VERY briefly if possible',
     messages: await convertToModelMessages(messages),
-    maxOutputTokens: 500,
+    maxOutputTokens: 1000,
 
     tools: {
-      geocodeAddressTool,
+      // geocodeAddressTool,
       getMapDataURL,
       updateDeckLayerViz
     },
-    stopWhen: stepCountIs(2),
+    stopWhen: stepCountIs(3),
     onStepFinish(event) {
       console.log('\n📍 Step finished:', event.toolResults);
+      console.log('\n📍 Step finished:', event);
       if (event.toolCalls && event.toolCalls.length > 0) {
         event.toolCalls.forEach((call) => {
           console.log(`🔧 Tool called: ${call.toolName}`);
