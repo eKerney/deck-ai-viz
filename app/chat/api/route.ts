@@ -14,7 +14,7 @@ export const maxDuration = 30;
 
 export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json();
-  const model = google('gemini-2.5-flash'); // or 'gemini-2.5-flash'
+  const model = google('gemini-2.5-flash-lite'); // or 'gemini-2.5-flash'
   // const model = openrouter('openrouter/free');
 
   const result = streamText({

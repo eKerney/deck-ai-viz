@@ -1,9 +1,9 @@
-import { UIMessage } from 'ai';
-// import React, { SetStateAction } from 'react';
+import { LayerInfo } from '../types';
+import React, { SetStateAction } from 'react';
 
 export interface ChatProps {
   children?: React.ReactNode;
-  callback?: (messages: UIMessage[]) => void;
+  callback?: SetStateAction<React.Dispatch<LayerInfo>>;
   // messages?: UIMessage[];
   // sendMessage?: ;
   // status?: ChatStatus;

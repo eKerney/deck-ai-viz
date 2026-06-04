@@ -10,6 +10,16 @@ export default function ChatInterface(props: ChatProps) {
   const [input, setInput] = useState('');
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({ api: 'chat/api' }),
+    onFinish: ({ message }) => {
+      for (const part of message.parts) {
+        // Runtime type is 'tool-getMapDataURL' even though TS types don't reflect it
+        if ((part as any).type === 'tool-getMapDataURL'
+          && (part as any).state === 'output-available') {
+          callback?.((part as any).output);
+          break;
+        }
+      }
+    },
   });
 
   const messageMapper = (messages: Array<UIMessage>) => {

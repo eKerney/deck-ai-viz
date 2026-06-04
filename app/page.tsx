@@ -1,14 +1,16 @@
 'use client';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Panel from "./components/Panel/Panel";
 import ChatInterface from "./chat/components/ChatInterface";
 import { DeckMap } from "./map/components/DeckMap";
 import { useMapInfo } from "./map/hooks/mapHooks";
+import { UIMessage } from "ai";
+import { LayerInfo } from "./types";
 
 export default function Home() {
-  const { viewState } = useMapInfo();
-  // const [chatMessages, setChatMessages] = useState<Array<string>>([]);
-  // useEffect(() => console.log('local', chatMessages), [chatMessages]);
+  const [layerData, setLayerData] = useState<LayerInfo>({ layerURL: '', layerName: '', geometry: null });
+  const { viewState, layer } = useMapInfo(layerData);
+  useEffect(() => console.log('local', layerData), [layerData]);
 
   return (
     <div className="h-screen w-screen overflow-hidden relative  ">
@@ -20,12 +22,12 @@ export default function Home() {
           bg-gray-800/60 backdrop-blur-md border-4 border-gray-600/10 
           rounded-lg shadow-xl p-4 z-50 '
       >
-        <ChatInterface callback={(() => null)} />
+        <ChatInterface callback={setLayerData} />
       </Panel>
 
       <DeckMap
         view_state={viewState}
-        layers={[]}
+        layers={layer ? [layer] : []}
       />
     </div>
   );
