@@ -17,10 +17,10 @@ export default function Home() {
       <Panel
         key='chatPanel'
         position='leftFull'
-        className='w-xs sm:w-sm md:w-m lg:w-lg xl:w-xl 
-          h-6/12 sm:h-6/12 md:h-9/12 lg:h-10/12 xl:h-10/12
-          bg-gray-800/60 backdrop-blur-md border-4 border-gray-600/10 
-          rounded-lg shadow-xl p-4 z-50 '
+        className='w-xs sm:w-sm md:w-m lg:w-lg xl:w-lg 
+        h-full
+          bg-gray-800/30 backdrop-blur-sm   
+           shadow-xl p-4 z-50 '
       >
         <ChatInterface callback={setLayerData} />
       </Panel>

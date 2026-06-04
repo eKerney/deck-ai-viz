@@ -29,15 +29,12 @@ const normalize = (s: string) => s.toLowerCase().trim().replace(/[\s-]+/g, '_');
 export const getMapDataURL = tool({
   description: 'Looks up a GeoJSON layer URL from https://geojson.xyz/ for use as a DeckGL data source. Returns the URL, layer name, and geometry type (point/line/polygon).',
   inputSchema: z.object({
-    layerType: z.string().describe('Layer category — e.g. roads, parks, land, urban, countries, states, rivers, lakes, oceans, populated_places, marine'),
+    layerType: z.string().describe('Layer category — e.g. roads, parks, land, urban, countries, states, rivers, lakes, oceans, populated places, marine, minor islands, graticules, regions  '),
   }),
   execute: async ({ layerType }: { layerType: string }) => {
-    // const key = layerType.toLowerCase().trim();
     const key = normalize(layerType);
     const entry = LAYER_MAP[key];
     if (entry) return { layerURL: entry.url, layerName: key, geometry: entry.geometry };
-    // const fuzzy = Object.entries(LAYER_MAP).find(([k]) =>
-    //   k.includes(key) || key.includes(k)
     // );
     const fuzzy = Object.entries(LAYER_MAP).find(([k]) => normalize(k).includes(key) || key.includes(normalize(k)));
 

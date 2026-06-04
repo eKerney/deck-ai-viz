@@ -2,10 +2,8 @@ import { GeoJsonLayer, Layer, ScatterplotLayer } from "deck.gl";
 import { MapViewState, Tile3DLayer } from "deck.gl";
 
 export const createScatterplotLayer = (dataURL: string) => {
-  console.log('createPoints', dataURL)
-  //   id: 'ScatterplotLayer',
-  // data: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/bart-stations.json',
-  const layer = new ScatterplotLayer({
+  console.log('createScatterplotLayer', dataURL)
+  return new ScatterplotLayer({
     id: 'scatter-layer',
     data: dataURL,
     getPosition: (d) => [d.longitude, d.latitude],
@@ -19,23 +17,23 @@ export const createScatterplotLayer = (dataURL: string) => {
     highlightColor: [0, 255, 208],
     opacity: 0.9
   })
-
-  return layer;
 }
 
-export const createGeoJSONLayer = (dataURL: string): Layer => {
-  console.log('createGeoJSON', dataURL)
+export const createGeoJSONLayer = (
+  dataURL: string,
+  polygonFillColor: [number, number, number, number]
+): Layer => {
 
   return new GeoJsonLayer({
     id: 'mixed-geojson-layer',
     data: dataURL,
     // Style properties for Points (Scatterplot)
     pointType: 'circle',
-    getFillColor: (d) => [50, 100, 200, 225],
+    getFillColor: (d) => [50, 100, 200, 150],
     getPointRadius: 10000,
     // Style properties for Lines (Path)
-    getLineColor: (d) => [150, 200, 250],
-    getLineWidth: 2,
+    getLineColor: (d: any) => [200, 200, 200, 255],
+    getLineWidth: 10000,
     // Style properties for Polygons
     getPolygonFillColor: (d: any) => [5, 50, 100, 150],
     extruded: false

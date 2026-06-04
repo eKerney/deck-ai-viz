@@ -5,3 +5,15 @@ export interface LayerInfo {
   layerName: string,
   geometry: LayerGeometry
 };
+
+export interface LayerViz {
+  pointType: string,
+  pointFillColor: [number, number, number, number],
+  pointRadius: 10000,
+  // Style properties for Lines (Path)
+  lineColor: [number, number, number, number],
+  lineWidth: 10000,
+  // Style properties for Polygons
+  getPolygonFillColor: (d: any) => polygonFillColor,
+  extruded: false
+}

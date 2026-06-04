@@ -60,12 +60,12 @@ export default function ChatInterface(props: ChatProps) {
 
   return (
     <div className='flex flex-col h-full'>
-      <div className={`flex flex-row items-center mb-8 $`}>
+      <div className={`flex flex-row items-baseline mb-8`}>
         <div
-          className='text-2xl font-mono text-white'
+          className='text-xl font-mono text-white'
           style={{ fontFamily: 'monospace' }}
         >
-          Am I In a Simulation???
+          Countries, Lakes, Populated Places...?
         </div>
       </div>
       <div className='flex-1 flex flex-col w-full max-w-md mx-auto'>
