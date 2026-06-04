@@ -12,6 +12,6 @@ export interface LayerViz {
   pointRadius?: 10000,
   lineColor?: [number, number, number, number],
   lineWidth?: 10000,
-  polygonFillColor?: [number, number, number, number],
+  fillColor?: [number, number, number, number],
   extruded?: boolean,
 }

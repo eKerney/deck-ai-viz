@@ -24,22 +24,26 @@ export const createGeoJSONLayer = (
   dataURL: string,
   layerViz: LayerViz
 ): Layer => {
-  const { polygonFillColor = [40, 173, 10, 150] } = layerViz;
+  const {
+    fillColor = [40, 173, 10, 150],
+    lineColor = [200, 200, 200, 200],
+    lineWidth = 5000,
+    pointRadius = 5000
+  } = layerViz;
 
   return new GeoJsonLayer({
     id: `geojson-xyz-layer`,
     data: dataURL,
     // Style properties for Points (Scatterplot)
     pointType: 'circle',
-    getFillColor: polygonFillColor,
-    getPointRadius: 10000,
+    getFillColor: fillColor,
+    getPointRadius: pointRadius,
     // Style properties for Lines (Path)
-    getLineColor: (d: any) => [200, 200, 200, 200],
-    getLineWidth: 5000,
+    getLineColor: lineColor,
+    getLineWidth: lineWidth,
     // Style properties for Polygons
-    // getPolygonFillColor: (d: any) => polygonFillColor,
     extruded: false,
-    updateTriggers: { getFillColor: [polygonFillColor] }
+    // updateTriggers: { getFillColor: [polygonFillColor] }
   });
 
 };
