@@ -27,7 +27,7 @@ const LAYER_MAP: Record<string, LayerEntry> = {
 const normalize = (s: string) => s.toLowerCase().trim().replace(/[\s-]+/g, '_');
 
 export const getMapDataURL = tool({
-  description: 'Matches the correct map layer name to user request - layers from https://geojson.xyz/ with local LAYER_MAP, Returns the GeoJSON data URL, layer name, and geometry type - please inform user that if layer has been found and added',
+  description: 'Matches the correct map layer name to user request - layers from https://geojson.xyz/ with local LAYER_MAP, Returns the GeoJSON data URL, layer name, and geometry type - please inform user of results - check geojson.xyz if you cant find layer',
   inputSchema: z.object({
     layerType: z.string().describe('Layer category — e.g. railroads, parks, land, urban, countries, states, rivers, lakes, oceans, populated places, marine, minor islands, graticules, regions '),
   }),
