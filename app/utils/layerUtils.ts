@@ -1,5 +1,6 @@
 import { GeoJsonLayer, Layer, ScatterplotLayer } from "deck.gl";
 import { MapViewState, Tile3DLayer } from "deck.gl";
+import { LayerViz } from "../types";
 
 export const createScatterplotLayer = (dataURL: string) => {
   console.log('createScatterplotLayer', dataURL)
@@ -21,22 +22,28 @@ export const createScatterplotLayer = (dataURL: string) => {
 
 export const createGeoJSONLayer = (
   dataURL: string,
-  polygonFillColor: [number, number, number, number]
+  layerViz: LayerViz
 ): Layer => {
+  const {
+    fillColor = [40, 173, 10, 150],
+    lineColor = [200, 200, 200, 200],
+    lineWidth = 5000,
+    pointRadius = 5000
+  } = layerViz;
 
   return new GeoJsonLayer({
-    id: 'mixed-geojson-layer',
+    id: `geojson-xyz-layer`,
     data: dataURL,
     // Style properties for Points (Scatterplot)
     pointType: 'circle',
-    getFillColor: (d) => [50, 100, 200, 150],
-    getPointRadius: 10000,
+    getFillColor: fillColor,
+    getPointRadius: pointRadius,
     // Style properties for Lines (Path)
-    getLineColor: (d: any) => [200, 200, 200, 255],
-    getLineWidth: 10000,
+    getLineColor: lineColor,
+    getLineWidth: lineWidth,
     // Style properties for Polygons
-    getPolygonFillColor: (d: any) => [5, 50, 100, 150],
-    extruded: false
+    extruded: false,
+    // updateTriggers: { getFillColor: [polygonFillColor] }
   });
 
 };
