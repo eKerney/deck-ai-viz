@@ -42,4 +42,3 @@ export const getMapDataURL = tool({
     return { error: `Unknown layer type "${layerType}". Available: ${Object.keys(LAYER_MAP).join(', ')}` };
   },
 });
-// Looks up a GeoJSON layer URL from https://geojson.xyz/ for use as a DeckGL data source. Returns the URL, layer name, and geometry type (point/line/polygon).',
