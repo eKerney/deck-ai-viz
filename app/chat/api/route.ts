@@ -32,8 +32,6 @@ export async function POST(req: Request) {
     },
     stopWhen: stepCountIs(3),
     onStepFinish(event) {
-      console.log('\n📍 Step finished:', event.toolResults);
-      console.log('\n📍 Step finished:', event);
       if (event.toolCalls && event.toolCalls.length > 0) {
         event.toolCalls.forEach((call) => {
           console.log(`🔧 Tool called: ${call.toolName}`);

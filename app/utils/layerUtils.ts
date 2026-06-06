@@ -38,6 +38,13 @@ export const createGeoJSONLayer = (
     pointType: 'circle',
     getFillColor: fillColor,
     getPointRadius: pointRadius,
+    transitions: {
+      getRadius: {
+        type: 'linear', // or 'linear'
+        damping: 0.9,
+        duration: 10000 // ms
+      }
+    },
     // Style properties for Lines (Path)
     getLineColor: lineColor,
     getLineWidth: lineWidth,
