@@ -40,9 +40,14 @@ export const createGeoJSONLayer = (
     getPointRadius: pointRadius,
     transitions: {
       getRadius: {
-        type: 'linear', // or 'linear'
-        damping: 0.9,
+        type: 'spring', // or 'linear'
+        damping: 0.2,
         duration: 10000 // ms
+      },
+      getFillColor: {
+        duration: 6000,
+        easing: (x: number) => -(Math.cos(Math.PI * x) - 1) / 2, // ease-in-out-sine
+        entry: ([r, g, b]) => [r, g, b, 0]
       }
     },
     // Style properties for Lines (Path)
