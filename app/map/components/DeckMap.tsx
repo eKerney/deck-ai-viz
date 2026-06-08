@@ -6,7 +6,7 @@ export const DeckMap = ({ view_state, layers }: {
   view_state: MapViewState,
   layers: Layer[],
 }) => {
-  // const memoizedLayers = useMemo(() => [...layers], [layers]);
+  const memoizedLayers = useMemo(() => [...layers], [layers]);
 
   const MAP_KEY = process.env.NEXT_PUBLIC_MAP_KEY;
 
