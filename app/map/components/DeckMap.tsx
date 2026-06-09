@@ -9,7 +9,11 @@ export const DeckMap = ({ view_state, layers }: {
   const memoizedLayers = useMemo(() => [...layers], [layers]);
 
   const MAP_KEY = process.env.NEXT_PUBLIC_MAP_KEY;
-
+  const basemaps = {
+    dark_backdrop: '019ead52-d6ec-7429-8057-c0a78ba858f1',
+    dark_color: '019cafff-3e33-7b71-99dc-1e5d9791e00d'
+  };
+  const mapURL = `https://api.maptiler.com/maps/${basemaps.dark_backdrop}/style.json?key=`;
   return (
     <DeckGL
       initialViewState={view_state}
@@ -18,7 +22,7 @@ export const DeckMap = ({ view_state, layers }: {
     >
       <Map
         style={{ width: '100vw', height: '100vh' }}
-        mapStyle={"https://api.maptiler.com/maps/019cafff-3e33-7b71-99dc-1e5d9791e00d/style.json?key=" + MAP_KEY}
+        mapStyle={mapURL + MAP_KEY}
       >
         <FullscreenControl />
       </Map>

@@ -26,8 +26,8 @@ export const createGeoJSONLayer = (
 ): Layer => {
   const {
     fillColor = [40, 173, 10, 150],
-    lineColor = [200, 200, 200, 200],
-    lineWidth = 5000,
+    lineColor = [200, 200, 200, 100],
+    lineWidth = 1000,
     pointRadius = 5000
   } = layerViz;
 
@@ -38,24 +38,33 @@ export const createGeoJSONLayer = (
     pointType: 'circle',
     getFillColor: fillColor,
     getPointRadius: pointRadius,
-    transitions: {
-      getRadius: {
-        type: 'spring', // or 'linear'
-        damping: 0.2,
-        duration: 10000 // ms
-      },
-      getFillColor: {
-        duration: 6000,
-        easing: (x: number) => -(Math.cos(Math.PI * x) - 1) / 2, // ease-in-out-sine
-        entry: ([r, g, b]) => [r, g, b, 0]
-      }
-    },
     // Style properties for Lines (Path)
     getLineColor: lineColor,
     getLineWidth: lineWidth,
     // Style properties for Polygons
     extruded: false,
-    // updateTriggers: { getFillColor: [polygonFillColor] }
+    transitions: {
+      getRadius: {
+        type: 'spring', // or 'linear'
+        damping: 0.5,
+        duration: 5000 // ms
+      },
+      getFillColor: {
+        duration: 5000,
+        easing: (x: number) => -(Math.cos(Math.PI * x) - 1) / 2, // ease-in-out-sine
+        entry: ([r, g, b]: number[]) => [r, g, b, 0]
+      },
+      getLineWidth: {
+        // type: 'linear',
+        // damping: 0.5,
+        duration: 5000
+      },
+      getLineColor: {
+        // type: 'linear',
+        // damping: 0.5,
+        duration: 5000
+      },
+    },
   });
 
 };
