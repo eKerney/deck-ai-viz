@@ -17,7 +17,8 @@ export async function POST(req: Request) {
   // const model = groq('llama-3.3-70b-versatile');
   // const model = groq('meta-llama/llama-4-scout-17b-16e-instruct');
   // const model = google('gemini-2.5-flash-lite'); // or 'gemini-2.5-flash'
-  const model = openrouter('openrouter/free');
+  // const model = openrouter('openrouter/free');
+  const model = openrouter('nex-agi/nex-n2-pro:free');
 
   const result = streamText({
     model: model,

@@ -10,7 +10,6 @@ const createColorField = (usage: string) => {
 
 export const updateDeckLayerViz = tool({
   description: 'Updates DeckGL Map Layer GeoJSONLayer visualization parameters, currently support color fill for polygons and points.',
-  // strict: true,
   inputSchema: z.object({
     fillColor: createColorField('fillColor'),
     lineColor: createColorField('lineColor'),
@@ -24,54 +23,3 @@ export const updateDeckLayerViz = tool({
   },
 });
 
-// import { tool } from 'ai';
-// import { z } from 'zod';
-//
-// // 1. Helper that strips text/units and forces a valid number
-// const groqNumberCoerce = (desc: string) =>
-//   z.preprocess((val) => {
-//     if (typeof val === 'string') {
-//       // Strips common string mutations like 'px', '#', 'rgba', brackets, etc.
-//       const cleaned = val.replace(/[^\d.-]/g, '');
-//       return cleaned ? parseFloat(cleaned) : val;
-//     }
-//     return val;
-//   }, z.coerce.number().min(0).max(255))
-//     .describe(`${desc} - MUST be a plain numeric value, do not include units or quotes.`);
-//
-// export const updateDeckLayerViz = tool({
-//   description: 'Updates DeckGL Map Layer parameters. Supports color configuration for polygon and point visualizations.',
-//
-//   inputSchema: z.object({
-//     // 2. Flatten keys AND use coercion to break any string generations
-//     fillR: groqNumberCoerce('Fill Red'),
-//     fillG: groqNumberCoerce('Fill Green'),
-//     fillB: groqNumberCoerce('Fill Blue'),
-//     fillA: groqNumberCoerce('Fill Alpha/Opacity'),
-//
-//     lineR: groqNumberCoerce('Line Red'),
-//     lineG: groqNumberCoerce('Line Green'),
-//     lineB: groqNumberCoerce('Line Blue'),
-//     lineA: groqNumberCoerce('Line Alpha/Opacity'),
-//
-//     // Use standard coercion for sizes to protect them from "px" strings
-//     lineWidth: z.coerce.number().describe('width of line e.g., 10, 100, 1000'),
-//     pointRadius: z.coerce.number().describe('radius size of point e.g., 100, 1000, 5000'),
-//   }),
-//
-//   execute: async (args) => {
-//     // 3. Assemble into the exact [R,G,B,A] arrays your DeckGL layers need
-//     const fillColor = [args.fillR, args.fillG, args.fillB, args.fillA];
-//     const lineColor = [args.lineR, args.lineG, args.lineB, args.lineA];
-//
-//     console.log('Successfully coerced Groq to clean numbers:', fillColor, lineColor);
-//
-//     return {
-//       fillColor,
-//       lineColor,
-//       lineWidth: args.lineWidth,
-//       pointRadius: args.pointRadius
-//     };
-//   },
-// });
-//

@@ -19,7 +19,7 @@ export default function Home() {
       <Panel
         key='chatPanel'
         position='leftFull'
-        className='w-xs sm:w-sm md:w-m lg:w-lg xl:w-lg 
+        className='w-xs sm:w-sm md:w-m lg:w-m xl:w-m 
         h-full
           bg-gray-800/30 backdrop-blur-sm   
            shadow-xl p-4 z-50 '
