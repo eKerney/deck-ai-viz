@@ -1,12 +1,17 @@
-import DeckGL, { Layer, MapViewState } from 'deck.gl';
-import { useMemo } from 'react';
-import { Map, FullscreenControl } from 'react-map-gl/maplibre';
+'use client';
+import { Layer, MapViewState } from 'deck.gl';
+// import { useMemo } from 'react';
+import { Map } from 'react-map-gl/maplibre';
+import { ZoomWidget, CompassWidget, DeckGL, FullscreenWidget, LoadingWidget } from '@deck.gl/react';
+import '@deck.gl/widgets/stylesheet.css';
+// import 'maplibre-gl/dist/maplibre-gl.css';
 
-export const DeckMap = ({ view_state, layers }: {
+
+const DeckMap = ({ view_state, layers }: {
   view_state: MapViewState,
   layers: Layer[],
 }) => {
-  const memoizedLayers = useMemo(() => [...layers], [layers]);
+  // const memoizedLayers = useMemo(() => [...layers], [layers]);
 
   const MAP_KEY = process.env.NEXT_PUBLIC_MAP_KEY;
   const basemaps = {
@@ -24,8 +29,14 @@ export const DeckMap = ({ view_state, layers }: {
         style={{ width: '100vw', height: '100vh' }}
         mapStyle={mapURL + MAP_KEY}
       >
-        <FullscreenControl />
       </Map>
+      <LoadingWidget placement="top-right" />
+      <FullscreenWidget placement="top-right" />
+      <ZoomWidget placement='top-right' />
+      <CompassWidget placement="top-right" />
+
     </DeckGL >
   )
 };
+
+export default DeckMap;

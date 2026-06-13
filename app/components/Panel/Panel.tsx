@@ -21,7 +21,7 @@ const Panel = (props: PanelProps) => {
   return (
     <>
       <div className={`fixed ${layoutPositions[position]} ${className || ''} `}>
-        <div ref={scrollRef} className="h-10/12 overflow-y">
+        <div ref={scrollRef} className="h-full overflow-y-auto">
           {children}
         </div>
       </div>

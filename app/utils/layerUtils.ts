@@ -28,7 +28,8 @@ export const createGeoJSONLayer = (
     fillColor = [40, 173, 10, 150],
     lineColor = [200, 200, 200, 100],
     lineWidth = 1000,
-    pointRadius = 5000
+    pointRadius = 5000,
+    extrudedElevation = 5000,
   } = layerViz;
 
   return new GeoJsonLayer({
@@ -42,7 +43,8 @@ export const createGeoJSONLayer = (
     getLineColor: lineColor,
     getLineWidth: lineWidth,
     // Style properties for Polygons
-    extruded: false,
+    extruded: true,
+    getElevation: extrudedElevation,
     transitions: {
       getRadius: {
         type: 'spring', // or 'linear'
@@ -55,15 +57,10 @@ export const createGeoJSONLayer = (
         entry: ([r, g, b]: number[]) => [r, g, b, 0]
       },
       getLineWidth: {
-        // type: 'linear',
-        // damping: 0.5,
         duration: 5000
       },
-      getLineColor: {
-        // type: 'linear',
-        // damping: 0.5,
-        duration: 5000
-      },
+      getLineColor: { duration: 5000 },
+      getElevation: { duration: 5000 },
     },
   });
 

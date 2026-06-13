@@ -9,17 +9,18 @@ const createColorField = (usage: string) => {
 }
 
 export const updateDeckLayerViz = tool({
-  description: 'Updates DeckGL Map Layer GeoJSONLayer visualization parameters, currently support color fill for polygons and points.',
+  description: 'Updates DeckGL Map Layer GeoJSONLayer visualization parameters, currently support color fill, line color, line width, point radius, and feature height aka elevation',
   inputSchema: z.object({
     fillColor: createColorField('fillColor'),
     lineColor: createColorField('lineColor'),
     lineWidth: z.number().describe('width of line 10=small 100=medium 1000=large 5000=extra large 10000=very big'),
     pointRadius: z.number().describe('size of point e.g. 100=small 1000=medium 10000=large 50000=extra large 100000=very big'),
+    extrudedElevation: z.number().describe('height of polygon or feature 3D extrusion, 1000=small 100000=extra large'),
   }),
-  execute: async ({ fillColor, lineColor, lineWidth, pointRadius }:
-    { fillColor: number[], lineColor: number[], lineWidth: number, pointRadius: number }) => {
+  execute: async ({ fillColor, lineColor, lineWidth, pointRadius, extrudedElevation }:
+    { fillColor: number[], lineColor: number[], lineWidth: number, pointRadius: number, extrudedElevation: number }) => {
     // if (!fillColor) return { error: `Incorrect fill color "${fillColor}"` };
-    return { fillColor: fillColor, lineColor: lineColor, lineWidth: lineWidth, pointRadius: pointRadius };
+    return { fillColor: fillColor, lineColor: lineColor, lineWidth: lineWidth, pointRadius: pointRadius, extrudedElevation: extrudedElevation };
   },
 });
 
