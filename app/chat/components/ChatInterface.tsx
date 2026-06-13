@@ -65,10 +65,10 @@ export default function ChatInterface(props: ChatProps) {
     <div className='flex flex-col h-full'>
       <div className={`flex flex-row items-baseline mb-8`}>
         <div
-          className='text-lg font-mono text-white'
+          className='text-xl font-mono text-white'
           style={{ fontFamily: 'monospace' }}
         >
-          Add a layer from geojson.xyz: countries, rivers, populated places...
+          Add a layer from geojson.xyz and update the viz
         </div>
       </div>
       <div className='flex-1 flex flex-col w-full max-w-md mx-auto min-h-0'>
@@ -82,13 +82,14 @@ export default function ChatInterface(props: ChatProps) {
             sendMessage({ text: input });
             setInput('');
           }}
+          className='px-1'
         >
           {status === 'streaming' && (
             <span className=' loading loading-xl loading-spinner text-accent'></span>
           )}
           <input
-            className=' left-2 dark:bg-zinc-800/90  w-full max-w-md p-2 border 
-            border-zinc-300 dark:border-zinc-800 rounded shadow-xl text-white/90  focus:ring-2 focus:ring-blue-500 '
+            className=' left-2 bg-zinc-900/80  w-full border-4  p-3  mb-10 
+             border-zinc-700 rounded shadow-xl text-white/90  focus:ring-1 focus:ring-amber-600 '
             value={input}
             placeholder='Which layer would you like to add...'
             onChange={(e) => setInput(e.currentTarget.value)}

@@ -9,9 +9,10 @@ export interface LayerInfo {
 export interface LayerViz {
   pointType?: string,
   pointFillColor?: [number, number, number, number],
-  pointRadius?: 10000,
+  pointRadius?: number,
   lineColor?: [number, number, number, number],
-  lineWidth?: 10000,
+  lineWidth?: number,
   fillColor?: [number, number, number, number],
   extruded?: boolean,
+  extrudedElevation?: number
 }
