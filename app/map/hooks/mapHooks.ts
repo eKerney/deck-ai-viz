@@ -1,5 +1,5 @@
 import { LayerInfo, LayerViz } from "@/app/types";
-import { createGeoJSONLayer, createScatterplotLayer } from "@/app/utils/layerUtils";
+import { createGeoJSONLayer } from "@/app/map/utils/layerUtils";
 import { Layer, MapViewState } from "deck.gl";
 
 export function useMapInfo(layerInfo: LayerInfo, layerViz: LayerViz): { viewState: MapViewState, layer: Layer | null } {
