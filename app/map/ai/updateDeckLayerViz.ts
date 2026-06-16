@@ -15,7 +15,7 @@ export const updateDeckLayerViz = tool({
     lineColor: createColorField('lineColor'),
     lineWidth: z.number().describe('width of line 10=small 100=medium 1000=large 5000=extra large 10000=very big'),
     pointRadius: z.number().describe('size of point e.g. 100=small 1000=medium 10000=large 50000=extra large 100000=very big'),
-    extrudedElevation: z.number().describe('height of polygon or feature 3D extrusion, 1000=small 100000=extra large'),
+    extrudedElevation: z.number().describe('height of polygon or feature 3D extrusion, 1000=small 10000=extra large'),
   }),
   execute: async ({ fillColor, lineColor, lineWidth, pointRadius, extrudedElevation }:
     { fillColor: number[], lineColor: number[], lineWidth: number, pointRadius: number, extrudedElevation: number }) => {
