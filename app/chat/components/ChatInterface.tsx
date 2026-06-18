@@ -1,7 +1,7 @@
 'use client';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, UIMessage } from 'ai';
-import { useState } from 'react';
+import { useEffect, useEffectEvent, useRef, useState } from 'react';
 import { ChatProps } from '../ChatInterface.types';
 import ReactMarkdown from 'react-markdown';
 
@@ -24,6 +24,10 @@ export default function ChatInterface(props: ChatProps) {
       }
     },
   });
+  const messagesRef = useRef<HTMLDivElement>(null);
+  useEffect(function messagesLength() {
+    if (messagesRef.current) messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+  }, [messages])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey) {
@@ -80,7 +84,7 @@ export default function ChatInterface(props: ChatProps) {
         </div>
       </div>
       <div className='flex-1 flex flex-col w-full max-w-md mx-auto min-h-0'>
-        <div className='grow overflow-y-auto mb-4'>
+        <div ref={messagesRef} className='grow overflow-y-auto mb-4'>
           {messageMapper(messages)}
         </div>
 
