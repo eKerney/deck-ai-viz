@@ -1,7 +1,7 @@
 'use client';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport, UIMessage } from 'ai';
-import { useEffect, useState } from 'react';
+import { useEffect, useEffectEvent, useRef, useState } from 'react';
 import { ChatProps } from '../ChatInterface.types';
 import ReactMarkdown from 'react-markdown';
 
@@ -24,6 +24,18 @@ export default function ChatInterface(props: ChatProps) {
       }
     },
   });
+  const messagesRef = useRef<HTMLDivElement>(null);
+  useEffect(function messagesLength() {
+    if (messagesRef.current) messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+  }, [messages])
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey) {
+      e.preventDefault();
+      sendMessage({ text: input });
+      setInput('');
+    }
+  };
 
   const messageMapper = (messages: Array<UIMessage>) => {
     return messages.map((message) => (
@@ -68,16 +80,17 @@ export default function ChatInterface(props: ChatProps) {
           className='text-xl font-mono text-white'
           style={{ fontFamily: 'monospace' }}
         >
-          Add a layer from geojson.xyz and update the viz
+          Add a layer from geojson.xyz or update layer viz
         </div>
       </div>
       <div className='flex-1 flex flex-col w-full max-w-md mx-auto min-h-0'>
-        <div className='grow overflow-y-auto mb-4'>
+        <div ref={messagesRef} className='grow overflow-y-auto mb-4'>
           {messageMapper(messages)}
         </div>
 
         <form
           onSubmit={(e) => {
+            console.table(e)
             e.preventDefault();
             sendMessage({ text: input });
             setInput('');
@@ -85,14 +98,15 @@ export default function ChatInterface(props: ChatProps) {
           className='px-1'
         >
           {status === 'streaming' && (
-            <span className=' loading loading-xl loading-spinner text-accent'></span>
+            <span className=' loading loading-xl loading-dots text-accent border-4'></span>
           )}
-          <input
-            className=' left-2 bg-zinc-900/80  w-full border-4  p-3  mb-10 
-             border-zinc-700 rounded shadow-xl text-white/90  focus:ring-1 focus:ring-amber-600 '
+          <textarea
+            className="max-h-16! textarea textarea-neutral bg-zinc-900/70 w-full left-2 mb-6 text-white/80 focus:outline-cyan-700/40 resize-none rounded shadow-xl text-lg"
             value={input}
             placeholder='Which layer would you like to add...'
             onChange={(e) => setInput(e.currentTarget.value)}
+            onKeyDown={handleKeyDown}
+            style={{ minHeight: 'auto', }}
           />
         </form>
       </div>
